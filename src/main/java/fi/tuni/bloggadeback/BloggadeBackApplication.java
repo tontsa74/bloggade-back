@@ -20,7 +20,7 @@ public class BloggadeBackApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("Hello Bloggade");
+        System.out.println("Hello Bloggade!");
         System.out.println("curl -i http://localhost:8080/blogposts/");
 
         List<BlogPost> blogPosts = new ArrayList<>();
