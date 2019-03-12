@@ -1,6 +1,7 @@
 package fi.tuni.bloggadeback;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,18 +15,22 @@ public class BlogPost {
     private long id;
     @CreationTimestamp
     LocalDateTime blogCreatedLocalDateTime;
+    @UpdateTimestamp
+    LocalDateTime blogModifiedLocalDateTime;
     String userName;
     String blogTitle;
+    String blogDescription;
     String blogText;
 
     public BlogPost() {
         System.out.println("constructor BlogPost()");
     }
 
-    public BlogPost(String userName, String blogTitle, String blogText) {
+    public BlogPost(String userName, String blogTitle, String blogDescription, String blogText) {
         System.out.println("constructor BlogPost(String userName, String blogText, String blogTitle)");
         setUserName(userName);
         setBlogTitle(blogTitle);
+        setBlogDescription(blogDescription);
         setBlogText(blogText);
     }
 
@@ -35,6 +40,10 @@ public class BlogPost {
 
     public LocalDateTime getBlogCreatedLocalDateTime() {
         return blogCreatedLocalDateTime;
+    }
+
+    public LocalDateTime getBlogModifiedLocalDateTime() {
+        return blogModifiedLocalDateTime;
     }
 
     public String getUserName() {
@@ -51,6 +60,14 @@ public class BlogPost {
 
     public void setBlogTitle(String blogTitle) {
         this.blogTitle = blogTitle;
+    }
+
+    public String getBlogDescription() {
+        return blogDescription;
+    }
+
+    public void setBlogDescription(String blogDescription) {
+        this.blogDescription = blogDescription;
     }
 
     public String getBlogText() {
