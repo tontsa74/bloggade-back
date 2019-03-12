@@ -1,14 +1,19 @@
 package fi.tuni.bloggadeback;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Entity
 public class BlogPost {
     @Id
     @GeneratedValue
     private long id;
+    @CreationTimestamp
+    LocalDateTime blogCreatedLocalDateTime;
     String userName;
     String blogTitle;
     String blogText;
@@ -26,6 +31,10 @@ public class BlogPost {
 
     public long getId() {
         return id;
+    }
+
+    public LocalDateTime getBlogCreatedLocalDateTime() {
+        return blogCreatedLocalDateTime;
     }
 
     public String getUserName() {
