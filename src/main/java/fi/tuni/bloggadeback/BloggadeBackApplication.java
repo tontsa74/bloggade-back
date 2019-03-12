@@ -22,6 +22,7 @@ public class BloggadeBackApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("Hello Bloggade!");
         System.out.println("curl -i http://localhost:8080/blogposts/");
+        System.out.println("curl -v -H \"Content-type: application/json\" -X POST -d \"{\\\"userName\\\":\\\"jeppe\\\", \\\"blogTitle\\\":\\\"otsikko\\\", \\\"blogDescription\\\":\\\"kuvaus\\\", \\\"blogText\\\":\\\"teksti\\\"}\" http://localhost:8080/addblogpost");
 
         List<BlogPost> blogPosts = new ArrayList<>();
         blogPosts.add(new BlogPost("admin", "Tervetuloa", "Tervetuloa, bloggademaan.", "Vain kivoja ja asiallisia tekstejä kiitos. Herjauksista bannivasara heilahtaa."));
