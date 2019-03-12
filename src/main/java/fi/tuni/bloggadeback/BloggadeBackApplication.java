@@ -21,6 +21,8 @@ public class BloggadeBackApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         System.out.println("Hello Bloggade");
+        System.out.println("curl -i http://localhost:8080/blogposts/");
+
         List<BlogPost> blogPosts = new ArrayList<>();
         blogPosts.add(new BlogPost("Jamppa", "Ruotsin alkeet", "Bloggade kuuluu kirjoittaa muotoon bloggare."));
         blogPosts.add(new BlogPost("admin", "Tervetuloa", "Tervetuloa, bloggademaan. Vain kivoja ja asiallisia tekstejä kiitos. Herjauksista bannivasara heilahtaa."));
