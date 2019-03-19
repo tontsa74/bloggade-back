@@ -9,6 +9,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class ServerConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedMethods("POST");
+        registry.addMapping("/**")
+                .allowedOrigins(
+                        "https://localhost:3000", "http://localhost:3000", "https://bloggade.herokuapp.com"
+                )
+                .allowedMethods("POST");
     }
 }
