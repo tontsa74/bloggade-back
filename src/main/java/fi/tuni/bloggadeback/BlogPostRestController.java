@@ -18,6 +18,9 @@ public class BlogPostRestController {
 
     @RequestMapping(value = "/blogposts/search{keyword}", method = RequestMethod.GET)
     public Iterable<BlogPost> get(@RequestParam String keyword) {
+
+        System.out.println("search keyword: " + keyword);
+
         return blogPostRepository.findByBlogTitleContainingIgnoreCase(keyword);
     }
 
