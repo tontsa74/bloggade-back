@@ -2,6 +2,8 @@ package fi.tuni.bloggadeback;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface BlogPostRepository extends CrudRepository<BlogPost, Integer> {
+import java.util.List;
 
+public interface BlogPostRepository extends CrudRepository<BlogPost, Integer> {
+    List<BlogPost> findByBlogTitleContaining(String keyword);
 }

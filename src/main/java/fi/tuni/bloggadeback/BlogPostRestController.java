@@ -1,10 +1,9 @@
 package fi.tuni.bloggadeback;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class BlogPostRestController {
@@ -15,6 +14,14 @@ public class BlogPostRestController {
     public Iterable<BlogPost> get() {
         System.out.println("get blogposts");
         return blogPostRepository.findAll();
+    }
+
+    @RequestMapping(value = "/blogposts/search{keyword}", method = RequestMethod.GET)
+    public List<BlogPost> get(@RequestParam String keyword) {
+
+        System.out.println("search: " + keyword);
+
+        return blogPostRepository.findByBlogTitleContaining(keyword);
     }
 
     @RequestMapping(value = "/addblogpost", method = RequestMethod.POST)
