@@ -13,6 +13,6 @@ public class ServerConfiguration implements WebMvcConfigurer {
                 .allowedOrigins(
                         "https://localhost:3000", "http://localhost:3000", "https://bloggade.herokuapp.com"
                 )
-                .allowedMethods("POST");
+                .allowedMethods("POST, GET");
     }
 }
