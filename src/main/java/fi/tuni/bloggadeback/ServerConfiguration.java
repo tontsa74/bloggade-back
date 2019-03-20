@@ -11,7 +11,7 @@ public class ServerConfiguration implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins(
-                        "https://localhost:3000", "http://localhost:3000", "https://bloggade.herokuapp.com"
+                        "https://localhost:3000", "http://localhost:3000", "https://bloggade.herokuapp.com", "https://localhost:8080"
                 )
                 .allowedMethods("POST", "GET");
     }
