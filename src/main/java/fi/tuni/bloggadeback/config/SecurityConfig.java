@@ -12,18 +12,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String ADMIN = "ADMIN";
     public static final String USER = "USER";
 
-/*    @Override
-    public void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests()
-                    .antMatchers("/api/private/accounts/*").hasRole(USER)
-                    .antMatchers("/api/private/admin/**").hasRole(ADMIN)
-                .and()
-                    .formLogin();
-    }*/
-
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests()
+        httpSecurity.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers("/api/public/**").permitAll()
                 .antMatchers("/api/private/user/**").hasRole(USER)
                 .antMatchers("/api/private/admin/**").hasRole(ADMIN)

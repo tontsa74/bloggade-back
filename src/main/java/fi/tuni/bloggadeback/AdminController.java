@@ -22,7 +22,7 @@ public class AdminController {
         blogPostRepository.save(tmpBlogPost);
     }
 
-    @RequestMapping(value = "/api/private/admin/delete/{blogPostId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/api/private/admin/delete/{blogpostId}", method = RequestMethod.DELETE)
     public void deleteBlogPost(@PathVariable long blogpostId) {
         BlogPost tmpBlogPost = blogPostRepository.findById(blogpostId).get();
         blogPostRepository.delete(tmpBlogPost);
