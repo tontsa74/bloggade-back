@@ -46,6 +46,10 @@ public class BlogPost {
         return blogModifiedLocalDateTime;
     }
 
+    public void setBlogModifiedLocalDateTime(LocalDateTime dateTime) {
+        blogModifiedLocalDateTime = dateTime;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -76,5 +80,13 @@ public class BlogPost {
 
     public void setBlogText(String blogText) {
         this.blogText = blogText;
+    }
+
+    public void clone(BlogPost blogPost) {
+        setBlogModifiedLocalDateTime(blogPost.getBlogModifiedLocalDateTime());
+        setUserName(blogPost.getUserName());
+        setBlogTitle(blogPost.getBlogTitle());
+        setBlogDescription(blogPost.getBlogDescription());
+        setBlogText(blogPost.getBlogText());
     }
 }

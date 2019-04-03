@@ -23,10 +23,4 @@ public class BlogPostRestController {
 
         return blogPostRepository.findByBlogTitleContainingIgnoreCase(keyword);
     }
-
-    @RequestMapping(value = "/api/private/admin/addblogpost", method = RequestMethod.POST)
-    public void addBlogPost(@RequestBody BlogPost blogPost) {
-        System.out.println("addBlogPost()");
-        blogPostRepository.save(blogPost);
-    }
 }
