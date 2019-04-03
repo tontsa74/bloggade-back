@@ -10,14 +10,14 @@ public class BlogPostRestController {
     @Autowired
     BlogPostRepository blogPostRepository;
 
-    //@CrossOrigin("*")
+    @CrossOrigin("*")
     @RequestMapping(value = "/api/public/blogposts", method = RequestMethod.GET)
     public Iterable<BlogPost> get() {
         System.out.println("get blogposts");
         return blogPostRepository.findAll();
     }
 
-    //@CrossOrigin("*")
+    @CrossOrigin("*")
     @RequestMapping(value = "/api/public/blogposts/search{keyword}", method = RequestMethod.GET)
     public Iterable<BlogPost> get(@RequestParam String keyword) {
 
