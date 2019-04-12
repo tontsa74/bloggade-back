@@ -1,26 +1,30 @@
 package fi.tuni.bloggadeback;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 public class Comment {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    String text;
+
+    private String text;
+
+    @ManyToOne
+    @JoinColumn(name = "blogPost_id")
+    private BlogPost blogPost;
+
+    public Comment() {
+    }
 
     public Comment(String text) {
+        super();
         setText(text);
     }
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getText() {
@@ -29,5 +33,17 @@ public class Comment {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public BlogPost getBlogPost() {
+        return blogPost;
+    }
+
+    public void setBlogPost(BlogPost blogPost) {
+        this.blogPost = blogPost;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

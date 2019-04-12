@@ -2,46 +2,41 @@ package fi.tuni.bloggadeback;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.boot.origin.SystemEnvironmentOrigin;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class BlogPost {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @CreationTimestamp
     LocalDateTime blogCreatedLocalDateTime;
+
     @UpdateTimestamp
     LocalDateTime blogModifiedLocalDateTime;
+
     String userName;
     String blogTitle;
     String blogDescription;
     String blogText;
-    //List<Comment> comments;   // TODO: implement comments propelly
-    String[] comments;
 
-    public BlogPost() {
-        System.out.println("constructor BlogPost()");
-    }
+    @OneToMany(mappedBy = "blogPost")
+    private List<Comment> comments;   // TODO: implement comments propelly
 
-    public BlogPost(String userName, String blogTitle, String blogDescription, String blogText, String[] comments) {// List<Comment> comments
-        System.out.println("constructor BlogPost");
-        setUserName(userName);
-        setBlogTitle(blogTitle);
-        setBlogDescription(blogDescription);
-        setBlogText(blogText);
-        //this.comments = new ArrayList<>();
-        //this.comments.addAll(comments);
-        this.comments = comments;
-//        comments = new String[10];
-//        setComments(comments);
+
+    public BlogPost() { }
+
+    public BlogPost(String userName, String blogTitle, String blogDescription, String blogText) {
+        super();
+        this.userName = userName;
+        this.blogTitle = blogTitle;
+        this.blogDescription = blogDescription;
+        this.blogText = blogText;
     }
 
     public long getId() {
@@ -92,30 +87,12 @@ public class BlogPost {
         this.blogText = blogText;
     }
 
-/*    public List<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
-        this.comments.addAll(comments);
-    }
-
     public void setComment(String comment) {
-        Comment newComment = new Comment(comment);
-        this.comments.add(newComment);
-    }*/
-
-    public String[] getComments() {
-        return comments;
-    }
-
-    public void setComments(String[] comments) {
-        this.comments = comments;
-        System.out.println(this.comments);
-    }
-
-    public void setComment(String comment) {
-        this.comments[0] = comment;
+        this.comments.add(new Comment(comment));
     }
 
     public void clone(BlogPost blogPost) {
@@ -124,5 +101,17 @@ public class BlogPost {
         setBlogTitle(blogPost.getBlogTitle());
         setBlogDescription(blogPost.getBlogDescription());
         setBlogText(blogPost.getBlogText());
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setBlogCreatedLocalDateTime(LocalDateTime blogCreatedLocalDateTime) {
+        this.blogCreatedLocalDateTime = blogCreatedLocalDateTime;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }
