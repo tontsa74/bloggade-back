@@ -20,6 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/private/admin/**").hasRole(ADMIN)
                 .and()
                 .formLogin();
+        httpSecurity.headers().frameOptions().disable();
     }
 
     @Autowired
