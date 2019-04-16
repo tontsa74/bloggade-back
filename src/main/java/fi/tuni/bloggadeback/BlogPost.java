@@ -1,13 +1,19 @@
 package fi.tuni.bloggadeback;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class BlogPost {
 
     @Id
@@ -26,10 +32,11 @@ public class BlogPost {
     String blogText;
 
     @OneToMany(mappedBy = "blogPost")
-    private List<Comment> comments;   // TODO: implement comments propelly
+    private Set<Comment> comments = new HashSet<>();
 
 
-    public BlogPost() { }
+    public BlogPost() {
+    }
 
     public BlogPost(String userName, String blogTitle, String blogDescription, String blogText) {
         super();
@@ -37,6 +44,7 @@ public class BlogPost {
         this.blogTitle = blogTitle;
         this.blogDescription = blogDescription;
         this.blogText = blogText;
+        //comments = new ArrayList<Comment>();
     }
 
     public long getId() {
@@ -87,7 +95,7 @@ public class BlogPost {
         this.blogText = blogText;
     }
 
-    public List<Comment> getComments() {
+    public Set<Comment> getComments() {
         return comments;
     }
 
@@ -111,7 +119,7 @@ public class BlogPost {
         this.blogCreatedLocalDateTime = blogCreatedLocalDateTime;
     }
 
-    public void setComments(List<Comment> comments) {
+    public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
 }
