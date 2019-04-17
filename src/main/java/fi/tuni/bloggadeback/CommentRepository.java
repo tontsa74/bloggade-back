@@ -2,4 +2,8 @@ package fi.tuni.bloggadeback;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface CommentRepository extends CrudRepository<Comment, Long> { }
+import java.util.List;
+
+public interface CommentRepository extends CrudRepository<Comment, Long> {
+    List<Comment> findCommentsByBlogPost_Id(long id);
+}
