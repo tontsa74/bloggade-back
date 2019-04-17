@@ -38,5 +38,11 @@ public class AdminController {
         blogPostRepository.delete(tmpBlogPost);
     }
 
+    @RequestMapping(value = "/api/private/admin/delete/comment/{commentId}", method = RequestMethod.DELETE)
+    public void deleteComment(@PathVariable long commentId) {
+        Comment comment = commentRepository.findById(commentId).get();
+        commentRepository.delete(comment);
+    }
+
 }
 
