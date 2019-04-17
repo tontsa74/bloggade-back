@@ -11,17 +11,9 @@ public class UserController {
 
     @Autowired
     private CommentRepository commentRepository;
-//
-//    @CrossOrigin("*")
-//    @GetMapping(value = "/api/public/comment/{id}{blogComment}")
-//    public void saveComment(@PathVariable Long id, @PathVariable String blogComment) {
-//        System.out.println("saveBlogPost2");
-//        BlogPost tmpBlogPost = blogPostRepository.findById(id).get();
-//        tmpBlogPost.setComment(blogComment);
-//    }
 
     @CrossOrigin("*")
-    @RequestMapping(value = "/api/public/comment", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/private/user/comment", method = RequestMethod.POST)
     public void saveBlogComment(@RequestBody Comment comment) {
         System.out.println("saveBlogPost");
         BlogPost blogPost = blogPostRepository.findById(comment.getId()).get();
