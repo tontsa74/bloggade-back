@@ -1,6 +1,9 @@
 package fi.tuni.bloggadeback;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,7 +24,7 @@ public class UserController {
 //    }
 
     @CrossOrigin("*")
-    @RequestMapping(value = "/api/public/comment", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/private/user/comment", method = RequestMethod.POST)
     public void saveBlogComment(@RequestBody Comment comment) {
         System.out.println("saveBlogPost");
         BlogPost blogPost = blogPostRepository.findById(comment.getId()).get();

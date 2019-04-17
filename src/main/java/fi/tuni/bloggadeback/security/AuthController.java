@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,6 +33,9 @@ public class AuthController {
 
     @Autowired
     JwtTokenizer jwtTokenizer;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -51,14 +55,15 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthResponse(jwt));
     }
 
-    @PostMapping("/reqister")
+    @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
 
         if(userRepository.existsByUsername(registerRequest.getUserName())) {
             return ResponseEntity.badRequest().body("Username already taken");
         }
 
-        ApplicationUser user = new ApplicationUser(registerRequest.getUserName(), registerRequest.getPassword(), "USER");
+        ApplicationUser user = new ApplicationUser(registerRequest.getUserName(), passwordEncoder.encode(registerRequest.getPassword()), "ROLE_USER");
+        userRepository.save(user);
 
         return ResponseEntity.ok("User created successfully!");
     }
