@@ -2,9 +2,11 @@ package fi.tuni.bloggadeback;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
@@ -12,6 +14,9 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @CreationTimestamp
+    LocalDateTime commentCreatedLocalDateTime;
 
     private String text;
 
@@ -29,6 +34,14 @@ public class Comment {
 
     public long getId() {
         return id;
+    }
+
+    public LocalDateTime getCommentCreatedLocalDateTime() {
+        return commentCreatedLocalDateTime;
+    }
+
+    public void setCommentCreatedLocalDateTime(LocalDateTime commentCreatedLocalDateTime) {
+        this.commentCreatedLocalDateTime = commentCreatedLocalDateTime;
     }
 
     public String getText() {
