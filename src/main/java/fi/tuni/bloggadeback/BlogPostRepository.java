@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface BlogPostRepository extends CrudRepository<BlogPost, Long> {
-    List<BlogPost> findByBlogTitleContainingIgnoreCase(String keyword);
+    List<BlogPost> findByBlogTitleContainingIgnoreCase(String keyword); // TODO: add search from description and text
 }

@@ -7,10 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
@@ -32,7 +29,8 @@ public class BlogPost {
     String blogText;
 
     @OneToMany(mappedBy = "blogPost")
-    private Set<Comment> comments = new HashSet<>();
+    @OrderBy("id DESC")
+    private Set<Comment> comments;
 
 
     public BlogPost() {
@@ -44,7 +42,7 @@ public class BlogPost {
         this.blogTitle = blogTitle;
         this.blogDescription = blogDescription;
         this.blogText = blogText;
-        //comments = new ArrayList<Comment>();
+        comments  = new LinkedHashSet<>();
     }
 
     public long getId() {
