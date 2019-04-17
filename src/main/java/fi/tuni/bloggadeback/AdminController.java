@@ -1,6 +1,7 @@
 package fi.tuni.bloggadeback;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -9,14 +10,14 @@ public class AdminController {
     @Autowired
     private BlogPostRepository blogPostRepository;
 
-    @CrossOrigin("*")
+    //@CrossOrigin("*")
     @RequestMapping(value = "/api/private/admin/add", method = RequestMethod.POST)
     public void addBlogPost(@RequestBody BlogPost blogPost) {
         System.out.println("addBlogPost()");
         blogPostRepository.save(blogPost);
     }
 
-    @CrossOrigin("*")
+    //@CrossOrigin("*")
     @RequestMapping(value = "/api/private/admin/edit", method = RequestMethod.PUT)
     public void editBlogPost(@RequestBody BlogPost blogpost) {
         BlogPost tmpBlogPost = blogPostRepository.findById(blogpost.getId()).get();
@@ -24,7 +25,7 @@ public class AdminController {
         blogPostRepository.save(tmpBlogPost);
     }
 
-    @CrossOrigin("*")
+    //@CrossOrigin("*")
     @RequestMapping(value = "/api/private/admin/delete/{blogpostId}", method = RequestMethod.DELETE)
     public void deleteBlogPost(@PathVariable long blogpostId) {
         BlogPost tmpBlogPost = blogPostRepository.findById(blogpostId).get();

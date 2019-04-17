@@ -37,6 +37,7 @@ public class BloggadeBackApplication implements CommandLineRunner {
         System.out.println("curl -v -H \"Content-type: application/json\" -X POST -d \"{\\\"userName\\\":\\\"jeppe\\\", \\\"blogTitle\\\":\\\"otsikko\\\", \\\"blogDescription\\\":\\\"kuvaus\\\", \\\"blogText\\\":\\\"teksti\\\"}\" http://localhost:8080/api/private/admin/add/");
 
         userRepository.save(new ApplicationUser("jussi", bCryptPasswordEncoder().encode("password"), "ROLE_ADMIN"));
+        userRepository.save(new ApplicationUser("jaska", bCryptPasswordEncoder().encode("abcpass"), "ROLE_USER"));
 
         List<BlogPost> blogPosts = new ArrayList<>();
         blogPosts.add(new BlogPost("admin", "Tervetuloa", "Tervetuloa, bloggademaan.", "Vain kivoja ja asiallisia tekstejä kiitos. Herjauksista bannivasara heilahtaa."));
