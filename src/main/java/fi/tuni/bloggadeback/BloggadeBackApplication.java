@@ -55,23 +55,13 @@ public class BloggadeBackApplication implements CommandLineRunner {
         post1.getComments().add(comment2);
 
 
+        // Save Posts and Comments via the Post entity
         blogPostRepository.save(post1);
-
         commentRepository.save(comment1);
         commentRepository.save(comment2);
-        // Save Posts and Comments via the Post entity
         blogPostRepository.save(post2);
-
-        for(Comment comment : post1.getComments()) {
-            System.out.println(comment.getText());
-        }
 
         userRepository.save(new ApplicationUser("jussi", bCryptPasswordEncoder().encode("password"), "ROLE_ADMIN"));
         userRepository.save(new ApplicationUser("jaska", bCryptPasswordEncoder().encode("abcpass"), "ROLE_USER"));
-
-        List<BlogPost> blogPosts = new ArrayList<>();
-        blogPosts.add(new BlogPost("admin", "Tervetuloa", "Tervetuloa, bloggademaan.", "Vain kivoja ja asiallisia tekstejä kiitos. Herjauksista bannivasara heilahtaa."));
-        blogPosts.add(new BlogPost("Jamppa", "Ruotsin alkeet", "Bloggade kuuluu kirjoittaa muotoon bloggare.", "fsfs sfadshcx shdjshd shfdusgf  sfdsgd sad sudgusdgys  behwegs7tx sgdad"));
-        blogPostRepository.saveAll(blogPosts);
     }
 }
