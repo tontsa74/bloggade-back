@@ -4,9 +4,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * This class is used for configuring server
+ */
 @Configuration
-
 public class ServerConfiguration implements WebMvcConfigurer {
+
+    /**
+     * Sets allowed origins and allowed methods
+     *
+     * @param registry Cors registry
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")

@@ -21,27 +21,46 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+/**
+ * This class handles users login and registration
+ */
 @RestController
 @RequestMapping(value = "/api/auth")
 public class AuthController {
 
+    /**
+     * AuthenticationManager instance
+     */
     @Autowired
     AuthenticationManager authenticationManager;
 
+    /**
+     * ApplicationUserRepository instance
+     */
     @Autowired
     ApplicationUserRepository userRepository;
 
+    /**
+     * JwtTokenizer instance
+     */
     @Autowired
     JwtTokenizer jwtTokenizer;
 
+    /**
+     * PasswordEncoder instance
+     */
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    /**
+     * Handles login.
+     * Checks if user exists and user has authorization
+     *
+     * @param loginRequest Object which contains username and password
+     * @return result of the authentication
+     */
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
-        System.out.println("Username: " + loginRequest.getUserName());
-        System.out.println("Password: " + loginRequest.getPassword());
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -55,6 +74,13 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthResponse(jwt));
     }
 
+    /**
+     * Handles registration.
+     * Checks that username doesn't exist and then saves user to repository
+     *
+     * @param registerRequest Object which contains username and password
+     * @return result of the registration
+     */
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
 
@@ -68,6 +94,12 @@ public class AuthController {
         return ResponseEntity.ok("User created successfully!");
     }
 
+    /**
+     * Returns users authorization info
+     *
+     * @param authentication
+     * @return Authorization info
+     */
     @GetMapping(value = "/users/details")
     public UserDetails getDetails(Authentication authentication) {
 

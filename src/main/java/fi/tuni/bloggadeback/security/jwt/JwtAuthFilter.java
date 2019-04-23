@@ -15,14 +15,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * This class handles the Token validation
+ */
 public class JwtAuthFilter extends OncePerRequestFilter {
 
+    /**
+     * JwtTokenizer instance
+     */
     @Autowired
     private JwtTokenizer jwtTokenizer;
 
+    /**
+     * UserDetailsServiceImpl instance
+     */
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    /**
+     * Checks if the token from the httpRequest is valid
+     *
+     * @param request Request from the page
+     * @param response Response from the server
+     * @param chain
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
 
@@ -46,6 +64,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 
+    /**
+     * Tries to get Token from the request
+     *
+     * @param request http request
+     * @return Token if it exists
+     */
     private String getJwtFromRequest(HttpServletRequest request) {
 
         String bearerToken = request.getHeader("Authorization");

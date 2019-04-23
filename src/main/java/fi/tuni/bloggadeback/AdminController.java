@@ -6,15 +6,29 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * This class handles all admin requests
+ */
 @RestController
 public class AdminController {
 
+    /**
+     * Blog post repository instance
+     */
     @Autowired
     private BlogPostRepository blogPostRepository;
 
+    /**
+     * Comment repository instance
+     */
     @Autowired
     private CommentRepository commentRepository;
 
+    /**
+     * Saves blogPost to repository
+     *
+     * @param blogPost Object which contains required information for blog post
+     */
     @CrossOrigin("*")
     @RequestMapping(value = "/api/private/admin/add", method = RequestMethod.POST)
     public void addBlogPost(@RequestBody BlogPost blogPost) {
@@ -22,6 +36,11 @@ public class AdminController {
         blogPostRepository.save(blogPost);
     }
 
+    /**
+     * Updates existing blogPost
+     *
+     * @param blogpost Modified blogPost
+     */
     @CrossOrigin("*")
     @RequestMapping(value = "/api/private/admin/edit", method = RequestMethod.PUT)
     public void editBlogPost(@RequestBody BlogPost blogpost) {
@@ -30,6 +49,11 @@ public class AdminController {
         blogPostRepository.save(tmpBlogPost);
     }
 
+    /**
+     * Removes blogPost from repository using id
+     *
+     * @param blogpostId BlodPost's id which will be removed
+     */
     @CrossOrigin("*")
     @RequestMapping(value = "/api/private/admin/delete/{blogpostId}", method = RequestMethod.DELETE)
     public void deleteBlogPost(@PathVariable long blogpostId) {
@@ -38,6 +62,11 @@ public class AdminController {
         blogPostRepository.delete(tmpBlogPost);
     }
 
+    /**
+     * Removes comment from repository using id
+     *
+     * @param commentId Comment's id which will be removed
+     */
     //@CrossOrigin("*")
     @RequestMapping(value = "/api/private/admin/delete/comment/{commentId}", method = RequestMethod.DELETE)
     public void deleteComment(@PathVariable long commentId) {

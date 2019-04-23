@@ -11,17 +11,33 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * This class parses information from the token
+ */
 @Component
 public class JwtTokenizer {
 
+    /**
+     * Logger instance
+     */
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenizer.class);
 
-    //@Value("${app.jwtSecret}")
+    /**
+     * Token secret salt
+     */
     private String jwtSecret = "Secret";
 
-    //@Value("${app.jwtExpirationInMs}")
+    /**
+     * Token expiration time
+     */
     private int jwtExpirationInMs = 860_000_000;
 
+    /**
+     * Generates token using authentication
+     *
+     * @param authentication Object which contains info about user authentication
+     * @return generated token
+     */
     public String generateToken(Authentication authentication) {
 
         UserPrincipalImpl userPrincipal = (UserPrincipalImpl) authentication.getPrincipal();
@@ -38,6 +54,12 @@ public class JwtTokenizer {
 
     }
 
+    /**
+     * Parses user's id from the token
+     *
+     * @param token token to be parsed
+     * @return returns user's id
+     */
     public Long getUserIdFromJWT(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
@@ -47,6 +69,12 @@ public class JwtTokenizer {
         return Long.parseLong(claims.getSubject());
     }
 
+    /**
+     * Checks if token is valid
+     *
+     * @param authToken token to be validated
+     * @return boolean which tells if token is valid
+     */
     public boolean validateToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

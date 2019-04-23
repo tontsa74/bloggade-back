@@ -23,34 +23,65 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsUtils;
 
+/**
+ * This class handles the security of the api
+ */
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    /**
+     * UserDetailsServiceImpl instance
+     */
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    /**
+     * JwtAuthenticationEntryPoint instance
+     */
     @Autowired
     private JwtAuthenticationEntryPoint unauthorizedHandler;
 
+    /**
+     * Returns JwtAuthFilter instance
+     *
+     * @return JwtAuthFilter instance
+     */
     @Bean
     public JwtAuthFilter jwtAuthFilter() {
         return new JwtAuthFilter();
     }
 
+    /**
+     * Returns AuthenticationManager instance
+     *
+     * @return AuthenticationManager instance
+     * @throws Exception
+     */
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
+    /**
+     * Configures authentication
+     *
+     * @param auth
+     * @throws Exception
+     */
     @Override
     public void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
 
+    /**
+     * Configures authentication provider
+     *
+     * @return AuthenticationProvider
+     */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -59,6 +90,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return authProvider;
     }
 
+    /**
+     * Configures permissions
+     *
+     * @param http HttpSecurity
+     * @throws Exception
+     */
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
@@ -80,17 +117,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
 
-
-        /*
-        httpSecurity.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/api/public/**").permitAll()
-                .antMatchers("/api/private/user/**").hasRole(USER)
-                .antMatchers("/api/private/admin/**").hasRole(ADMIN)
-                .and()
-                .formLogin();
-         */
     }
 
+    /**
+     * Returns password encoder instance
+     *
+     * @return PasswordEncoder instance
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(11);
